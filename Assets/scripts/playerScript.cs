@@ -10,6 +10,8 @@ public class playerScript : MonoBehaviour {
     public InputAction jump; 
     public InputAction moveLeft;
     public InputAction moveRight;
+    public Animator animator;
+    public GameObject camera;
 
     public bool grounded;
     public float jumpIntensity;
@@ -17,11 +19,13 @@ public class playerScript : MonoBehaviour {
 
     float currentTurnSpeed = 0f;  
     public float turnAccel = 720f; 
+    public bool gameStarted;
 
     private float coyoteTime = 0.2f;
     private float coyoteTimer;
     private float jumpBuffer = 0.2f;
     private float bufferCounter;
+    private float startCounter;
 
     void OnEnable(){
         jump = new InputAction("Jump", binding: "<Keyboard>/w");
@@ -44,6 +48,7 @@ public class playerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if(!gameStarted) return;
 
         if(grounded) coyoteTimer = coyoteTime; 
         else coyoteTimer -= Time.deltaTime;
@@ -63,6 +68,10 @@ public class playerScript : MonoBehaviour {
         if (moveLeft.IsPressed()) input = 1f;
         if (moveRight.IsPressed()) input = -1f;
 
+        if(input != 0f || jump.WasPressedThisFrame()) camera.GetComponent<OrbitalCamera>().SetSmoothing();
+
+        animator.SetFloat("speed", -input);
+
         float deltaY = input * speed * Time.deltaTime;
         playerTransform.Rotate(Vector3.up, deltaY, Space.Self);
     }
@@ -76,5 +85,9 @@ public class playerScript : MonoBehaviour {
 
     private void OnCollisionExit(Collision other) {
         grounded = false;
+    }
+
+    public void StartGame() {
+        gameStarted = true;
     }
 }

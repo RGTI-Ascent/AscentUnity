@@ -10,8 +10,7 @@ public class OrbitalCamera : MonoBehaviour
 
     private Vector3 targetPosition;
 
-    void LateUpdate()
-    {
+    void LateUpdate()   {
         float angle = Mathf.Atan2(player.position.z, player.position.x); 
 
         float camX = Mathf.Cos(angle) * (towerRadius + distanceOffset);
@@ -23,5 +22,15 @@ public class OrbitalCamera : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
         Quaternion targetRot = Quaternion.LookRotation(player.position + Vector3.up * 0.3f - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
+    }
+
+    public void SetProperties(){
+        this.towerRadius = 3.88f;
+        this.heightOffset = 0.55f;
+        this.smoothing = 1f;
+    }
+
+    public void SetSmoothing() {
+        this.smoothing = 8.5f;
     }
 }
