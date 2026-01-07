@@ -12,6 +12,7 @@ public class playerScript : MonoBehaviour {
     public InputAction moveRight;
     public Animator animator;
     public GameObject camera;
+    public GameObject retryMenu;
 
     public bool grounded;
     public float jumpIntensity;
@@ -89,5 +90,15 @@ public class playerScript : MonoBehaviour {
 
     public void StartGame() {
         gameStarted = true;
+    }
+
+    public void TakeDamage() {
+        gameStarted = false;
+        retryMenu.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    public void StompJump() {
+        body.linearVelocity = new Vector3(body.linearVelocity.x, jumpIntensity * 0.5f, body.linearVelocity.z);
     }
 }
