@@ -19,7 +19,7 @@ public class EnemyDamage : MonoBehaviour {
             // check if player is falling onto enemy
             if(playerBody != null && playerBody.linearVelocity.y < 0) {
                 player.StompJump();
-                Destroy(transform.parent.gameObject); 
+                Destroy(gameObject); 
             } else {
                 player.TakeDamage();
             }

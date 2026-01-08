@@ -15,6 +15,6 @@ public class FaceCamera : MonoBehaviour {
         float parentAngle = transform.parent.eulerAngles.y;
         float adjustedAngle = angle - parentAngle;
         
-        transform.localEulerAngles = new Vector3(90, adjustedAngle, 0);
+        transform.localEulerAngles = new Vector3(0, adjustedAngle, 0);
     }
 }
