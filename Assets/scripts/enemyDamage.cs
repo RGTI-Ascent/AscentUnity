@@ -16,15 +16,20 @@ public class EnemyDamage : MonoBehaviour {
                 playerBody = other.GetComponentInParent<Rigidbody>();
             }
             
-            // check if player is falling onto enemy
             if(playerBody != null && playerBody.linearVelocity.y < 0) {
                 player.StompJump();
-                Destroy(gameObject); 
+                PlayDeathAnimation();
             } else {
                 player.TakeDamage();
             }
         } else {
             Debug.Log("playerScript not found");
         }
+    }
+
+    void PlayDeathAnimation() {
+        Debug.Log("Enemy Death");
+        GetComponentInChildren<Animator>().SetTrigger("Death");
+        Destroy(gameObject, 0.3f);
     }
 }
