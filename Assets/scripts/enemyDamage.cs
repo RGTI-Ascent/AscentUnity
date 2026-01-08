@@ -28,8 +28,12 @@ public class EnemyDamage : MonoBehaviour {
     }
 
     void PlayDeathAnimation() {
-        Debug.Log("Enemy Death");
-        GetComponentInChildren<Animator>().SetTrigger("Death");
+        Animator animator = GetComponentInChildren<Animator>();
+
+        if (animator != null) {
+            animator.SetTrigger("Death");
+        }
+
         Destroy(gameObject, 0.2f);
     }
 }
